@@ -1,1 +1,7 @@
-https://toiziziblog1.vercel.app/#shou-ye
+HI
+It is currently September 28, 2023 (China time). I am uploading a project I created a year ago to GitHub.
+At the time, I hadn't yet encountered AI, so I built this blog from scratch myself; however, I ultimately used AI to fill in the unfinished "Music" section before finally submitting it.
+I remember spending several weeks building this blog; to make it look cooler, I even taught myself JavaScript beforehand. Back then, JavaScript was a subject I wouldn't have encountered in my university curriculum until much later—it seems I was truly passionate about programming even then.
+To be honest, I actually have another GitHub account, but since people I know are on it, I didn't want my amateurish projects to be scrutinized—which is why I created this one. Deep down, this blog means a lot to me; I couldn't bear to abandon it, yet I didn't want to put it on public display. That’s how I ended up with an account that only I know about.
+Alright! This blog is built using HTML5, CSS, and a bit of JavaScript. There are no frameworks involved; I created it for a web front-end course during college. It’s quite rudimentary—I didn't know much back then, let alone anything about frameworks.
+Oh, right—if a future version of me comes across this blog again, I hope you leave it exactly as it is. Don't change a thing; preserve that original naivety and let yourself feel a little embarrassed every now and then.
