@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY CORNER</title>
+    <link rel="preload" href="./img/diandianxiangsutiyuanxing.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="stylesheet" href="blog.css">
+    <style>
+        html {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        html.zi-ti-jia-zai-wan-cheng {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="huan-xing-hu-xi-guang-yun"></div>
+
+    <div id="bei-jing-hua-bu">
+        <canvas id="huo-bu"></canvas>
+    </div>
+
+    <div class="zhu-ti-nei-rong">
+        <nav class="dao-hang-rong-qi" id="dao-hang-rong-qi">
+            <div class="dao-hang-chu-fa-qi" id="cai-dan-an-niu"></div>
+            <div class="dao-hang-cai-dan" id="dao-hang-cai-dan">
+                <a href="#shou-ye" class="dao-hang-lian-jie" onclick="guanBiCaiDan()">HOME</a>
+                <a href="#guan-yu-wo" class="dao-hang-lian-jie" onclick="guanBiCaiDan()">ABOUT</a>
+                <a href="#pian-duan" class="dao-hang-lian-jie" onclick="guanBiCaiDan()">MOMENT</a>
+                <a href="#yin-le" class="dao-hang-lian-jie" onclick="guanBiCaiDan()">MUSIC</a>
+            </div>
+            <div class="zhe-zhe-ceng" id="zhe-zhe-ceng"></div>
+        </nav>
+
+        <section id="shou-ye">
+            <h1 class="xian-shi-dong-hua suo-fang-chu-xian">MY CORNER</h1>
+            <p class="xian-shi-dong-hua cong-xia-sheng-qi" style="margin-top: 20px; opacity: 0.5; letter-spacing: 2px;">
+                My little nest · store my literary inspiration</p>
+        </section>
+
+        <section id="guan-yu-wo">
+            <h2 class="xian-shi-dong-hua cong-xia-sheng-qi">INTRODUCTION</h2>
+            <div class="nei-rong-qia-pian xian-shi-dong-hua cong-you-fei-ru">
+                <div class="tou-xiang-dai-ti"></div>
+                <p>拂过指尖，沾了困倦</p>
+                <p>好奇透明的梦，<span class="gao-liang">难以捉摸的风</span></p>
+                <p>是否有你出现</p>
+            </div>
+        </section>
+
+        <section id="pian-duan">
+            <h2 class="xian-shi-dong-hua cong-xia-sheng-qi">FRAGMENTS</h2>
+            <div class="nei-rong-qia-pian xian-shi-dong-hua cong-zuo-fei-ru" id="pian-duan-lie-biao">
+            </div>
+        </section>
+
+        <section id="yin-le">
+            <h2 class="xian-shi-dong-hua cong-xia-sheng-qi">SOUNDTRACK</h2>
+            
+            <div class="yin-le-wan-jia" id="yin-le-wan-jia">
+                <div class="wan-jia-zuo">
+                    <div class="mu-qian-tu-pian" id="mu-qian-tu-pian"></div>
+                    <div class="mu-qian-ge-qu">
+                        <div class="mu-qian-ming" id="mu-qian-ming">未播放</div>
+                        <div class="mu-qian-ge-shou" id="mu-qian-ge-shou">-</div>
+                    </div>
+                </div>
+                <div class="wan-jia-zhong">
+                    <div class="bo-fang-kong-zhi">
+                        <button class="kong-zhi-an-niu" id="shang-yi-shou" aria-label="上一首">‹</button>
+                        <button class="kong-zhi-an-niu bo-fang-an-niu" id="bo-fang-zan-ting" aria-label="播放">▶</button>
+                        <button class="kong-zhi-an-niu" id="xia-yi-shou" aria-label="下一首">›</button>
+                    </div>
+                    <div class="jin-du-tiao" id="jin-du-tiao">
+                        <div class="jin-du" id="jin-du"></div>
+                    </div>
+                </div>
+                <div class="wan-jia-you">
+                    <button class="lie-biao-zhan-kai" id="lie-biao-zhan-kai" aria-label="打开播放列表">☰</button>
+                </div>
+            </div>
+
+            <p class="yin-le-yin-yan xian-shi-dong-hua cong-xia-sheng-qi">让一首歌陪你读完此刻。</p>
+
+            <div class="yin-le-ka-pian-qu" id="yin-le-ka-pian-qu">
+                <div class="yin-le-ka-pian" data-lei-xing="ye-hang">
+                    <div class="ka-pian-tu-pian" style="background-image: url('./img/music/流年.jpg');"></div>
+                    <div class="ka-pian-biao-ti">歌单</div>
+                    <div class="ka-pian-shu-liang">0 首</div>
+                </div>
+            </div>
+
+            <div class="bo-fang-lie-biao" id="bo-fang-lie-biao">
+                <div class="lie-biao-biao-ti">
+                    <span id="dang-qian-fen-lei">歌单</span>
+                    <button class="shou-qi-an-niu" id="shou-qi-an-niu" aria-label="关闭播放列表">×</button>
+                </div>
+                <div class="lie-biao-nei-rong" id="lie-biao-nei-rong">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        if (!window.location.hash) window.scrollTo(0, 0);
+        window.addEventListener('pageshow', () => {
+            if (!window.location.hash) window.scrollTo(0, 0);
+        });
+
+        async function waitForFont() {
+            try {
+                await document.fonts.load('16px TEXT');
+            } catch (e) {
+                console.log('字体加载失败');
+            }
+            document.documentElement.classList.add('zi-ti-jia-zai-wan-cheng');
+        }
+        waitForFont();
+
+        async function loadArticles() {
+            try {
+                const response = await fetch('articles.json');
+                const data = await response.json();
+                const container = document.getElementById('pian-duan-lie-biao');
+                
+                container.innerHTML = data.articles.map(article => `
+                    <a href="./article/article-view.html?id=${article.id}" class="pian-duan-ka-pian">
+                        <div class="pian-duan-ri-qi">${article.subtitle}</div>
+                        <p>${article.excerpt}</p>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('加载文章失败:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadArticles);
+
+        if (!window.globalAudio) {
+            window.globalAudio = new Audio();
+            window.globalAudio.volume = 0.5;
+        }
+        
+        const audio = window.globalAudio;
+
+        const yinYueShuJu = {
+            'ye-hang': [
+                { ming: '流年', geShou: '收藏单曲', tuPian: './img/music/流年.jpg', url: './music/流年.mp3', seDiao: 0 }
+            ]
+        };
+
+        let dangQianFenLei = 'ye-hang';
+        let dangQianGeQuIndex = 0;
+        let boFangZhong = false;
+        let lieBiaoZhanKai = false;
+
+        const muQianTuPian = document.getElementById('mu-qian-tu-pian');
+        const muQianMing = document.getElementById('mu-qian-ming');
+        const muQianGeShou = document.getElementById('mu-qian-ge-shou');
+        const boFengAnNiu = document.getElementById('bo-fang-zan-ting');
+        const shangYiShou = document.getElementById('shang-yi-shou');
+        const xiaYiShou = document.getElementById('xia-yi-shou');
+        const jinDu = document.getElementById('jin-du');
+        const jinDuTiao = document.getElementById('jin-du-tiao');
+        const lieBiaoZhanKaiAnNiu = document.getElementById('lie-biao-zhan-kai');
+        const boFangLieBiao = document.getElementById('bo-fang-lie-biao');
+        const shouQiAnNiu = document.getElementById('shou-qi-an-niu');
+        const lieBiaoNeiRong = document.getElementById('lie-biao-nei-rong');
+        const dangQianFenLeiBiaoTi = document.getElementById('dang-qian-fen-lei');
+        const kaPianQu = document.getElementById('yin-le-ka-pian-qu');
+
+        function gengXinKaPianShuLiang() {
+            document.querySelectorAll('.yin-le-ka-pian').forEach(kaPian => {
+                const leiXing = kaPian.dataset.leiXing;
+                const shuLiang = yinYueShuJu[leiXing]?.length || 0;
+                kaPian.querySelector('.ka-pian-shu-liang').textContent = shuLiang + ' 首';
+            });
+        }
+
+        function huoQuDangQianLieBiao() {
+            return yinYueShuJu[dangQianFenLei] || [];
+        }
+
+        function qieHuanGeQu(index) {
+            const lieBiao = huoQuDangQianLieBiao();
+            if (index < 0) index = lieBiao.length - 1;
+            if (index >= lieBiao.length) index = 0;
+            
+            dangQianGeQuIndex = index;
+            const geQu = lieBiao[dangQianGeQuIndex];
+            
+            muQianMing.textContent = geQu.ming;
+            muQianGeShou.textContent = geQu.geShou;
+            
+            if (geQu.tuPian) {
+                muQianTuPian.style.backgroundImage = `url(${geQu.tuPian})`;
+                muQianTuPian.style.filter = `hue-rotate(${geQu.seDiao || 0}deg)`;
+            } else {
+                const kaPian = document.querySelector(`[data-lei-xing="${dangQianFenLei}"] .ka-pian-tu-pian`);
+                const beiJing = kaPian ? kaPian.style.background : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                muQianTuPian.style.background = beiJing;
+            }
+            
+            if (geQu.url) {
+                audio.src = geQu.url;
+            }
+            
+            gengXinLieBiaoGaoLiang();
+        }
+
+        function gengXinLieBiaoGaoLiang() {
+            document.querySelectorAll('.lie-biao-xiang').forEach((xiang, index) => {
+                xiang.classList.toggle('dang-qian', index === dangQianGeQuIndex);
+                const tuBiao = xiang.querySelector('.xiang-bo-fang');
+                if (tuBiao) tuBiao.textContent = index === dangQianGeQuIndex && boFangZhong ? '❚❚' : '▶';
+            });
+        }
+
+        function xuanRanLieBiao() {
+            const lieBiao = huoQuDangQianLieBiao();
+            lieBiaoNeiRong.innerHTML = lieBiao.map((geQu, index) => `
+                <div class="lie-biao-xiang ${index === dangQianGeQuIndex ? 'dang-qian' : ''}" data-index="${index}">
+                    <div class="xiang-tu-pian" style="${geQu.tuPian ? `background-image: url(${geQu.tuPian}); filter: hue-rotate(${geQu.seDiao || 0}deg)` : ''}"></div>
+                    <div class="xiang-xin-xi">
+                        <div class="xiang-ming">${geQu.ming}</div>
+                        <div class="xiang-ge-shou">${geQu.geShou}</div>
+                    </div>
+                    <div class="xiang-bo-fang">${index === dangQianGeQuIndex && boFangZhong ? '❚❚' : '▶'}</div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.lie-biao-xiang').forEach(xiang => {
+                xiang.addEventListener('click', () => {
+                    const index = parseInt(xiang.dataset.index);
+                    if (index === dangQianGeQuIndex && boFangZhong) {
+                        zanTing();
+                    } else {
+                        qieHuanGeQu(index);
+                        boFang();
+                    }
+                });
+            });
+        }
+
+        function boFang() {
+            if (!audio.src) return;
+            audio.play().then(() => {
+                boFangZhong = true;
+                boFengAnNiu.textContent = '❚❚';
+                boFengAnNiu.setAttribute('aria-label', '暂停');
+                muQianTuPian.classList.add('xuan-zhuan-zhong');
+                gengXinLieBiaoGaoLiang();
+            }).catch(() => {
+                boFangZhong = false;
+                muQianGeShou.textContent = '音频暂时无法播放';
+            });
+        }
+
+        function zanTing() {
+            boFangZhong = false;
+            boFengAnNiu.textContent = '▶';
+            boFengAnNiu.setAttribute('aria-label', '播放');
+            muQianTuPian.classList.remove('xuan-zhuan-zhong');
+            audio.pause();
+            gengXinLieBiaoGaoLiang();
+        }
+
+        boFengAnNiu.addEventListener('click', () => {
+            if (boFangZhong) zanTing();
+            else boFang();
+        });
+
+        shangYiShou.addEventListener('click', () => {
+            qieHuanGeQu(dangQianGeQuIndex - 1);
+            if (boFangZhong) boFang();
+        });
+
+        xiaYiShou.addEventListener('click', () => {
+            qieHuanGeQu(dangQianGeQuIndex + 1);
+            if (boFangZhong) boFang();
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const baiFenBi = (audio.currentTime / audio.duration) * 100;
+                jinDu.style.width = baiFenBi + '%';
+            }
+        });
+
+        jinDuTiao.addEventListener('click', (e) => {
+            if (audio.duration) {
+                const rect = jinDuTiao.getBoundingClientRect();
+                const baiFenBi = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = baiFenBi * audio.duration;
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            qieHuanGeQu(dangQianGeQuIndex + 1);
+            boFang();
+        });
+
+        lieBiaoZhanKaiAnNiu.addEventListener('click', () => {
+            lieBiaoZhanKai = !lieBiaoZhanKai;
+            boFangLieBiao.classList.toggle('zhan-kai', lieBiaoZhanKai);
+        });
+
+        shouQiAnNiu.addEventListener('click', () => {
+            lieBiaoZhanKai = false;
+            boFangLieBiao.classList.remove('zhan-kai');
+        });
+
+        document.querySelectorAll('.yin-le-ka-pian').forEach(kaPian => {
+            kaPian.addEventListener('click', () => {
+                dangQianFenLei = kaPian.dataset.leiXing;
+                dangQianGeQuIndex = 0;
+                
+                const fenLeiMing = { 'ye-hang': '歌单' };
+                dangQianFenLeiBiaoTi.textContent = fenLeiMing[dangQianFenLei];
+                
+                lieBiaoZhanKai = true;
+                boFangLieBiao.classList.add('zhan-kai');
+                
+                qieHuanGeQu(0);
+                xuanRanLieBiao();
+            });
+        });
+
+        function huiFuBoFangZhuangTai() {
+            const lieBiao = huoQuDangQianLieBiao();
+            if (lieBiao[dangQianGeQuIndex]) {
+                const geQu = lieBiao[dangQianGeQuIndex];
+                muQianMing.textContent = geQu.ming;
+                muQianGeShou.textContent = geQu.geShou;
+                
+                if (geQu.tuPian) {
+                    muQianTuPian.style.backgroundImage = `url(${geQu.tuPian})`;
+                    muQianTuPian.style.filter = `hue-rotate(${geQu.seDiao || 0}deg)`;
+                } else {
+                    const kaPian = document.querySelector(`[data-lei-xing="${dangQianFenLei}"] .ka-pian-tu-pian`);
+                    const beiJing = kaPian ? kaPian.style.background : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                    muQianTuPian.style.background = beiJing;
+                }
+                
+                if (!audio.paused) {
+                    boFangZhong = true;
+                    boFengAnNiu.textContent = '❚❚';
+                    muQianTuPian.classList.add('xuan-zhuan-zhong');
+                }
+            }
+        }
+
+        gengXinKaPianShuLiang();
+        qieHuanGeQu(0);
+        xuanRanLieBiao();
+        huiFuBoFangZhuangTai();
+
+        const huoBu = document.getElementById('huo-bu');
+        const ctx = huoBu.getContext('2d');
+
+        let width, height;
+        let stars = [];
+        let dusts = [];
+        let constellations = [];
+        let meteors = [];
+        let time = 0;
+
+        const config = {
+            starCount: 60,
+            starMaxSize: 3,
+            dustCount: 80,
+            starSpeed: 0.1,
+            dustSpeed: 0.1,
+            planetRadius: 1.0,
+            planetGlow: 2.0,
+            twinkleSpeedBase: 0.008,
+            meteorChance: 0.003,
+            meteorSpeedBase: 4
+        };
+
+        function resize() {
+            width = huoBu.width = window.innerWidth;
+            height = huoBu.height = window.innerHeight;
+            initConstellations();
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * config.starMaxSize;
+                this.opacity = 0;
+                this.fadeIn = true;
+                this.maxOpacity = 0.3 + Math.random() * 0.5;
+                this.fadeSpeed = 0.005 + Math.random() * 0.01;
+                this.twinkleSpeed = config.twinkleSpeedBase + Math.random() * 0.005;
+                this.twinkleOffset = Math.random() * Math.PI * 2;
+                this.vx = (Math.random() - 0.5) * config.starSpeed;
+                this.vy = (Math.random() - 0.5) * config.starSpeed;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+                if (this.fadeIn) {
+                    this.opacity += this.fadeSpeed;
+                    if (this.opacity >= this.maxOpacity) this.fadeIn = false;
+                } else {
+                    this.opacity -= this.fadeSpeed;
+                    if (this.opacity <= 0) {
+                        this.fadeIn = true;
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                    }
+                }
+            }
+            draw() {
+                const twinkle = 0.4 + 0.6 * Math.abs(Math.sin(time * this.twinkleSpeed + this.twinkleOffset));
+                ctx.beginPath();
+                const spikes = 4;
+                const outerRadius = this.size;
+                const innerRadius = this.size * 0.4;
+                for (let i = 0; i < spikes * 2; i++) {
+                    const radius = i % 2 === 0 ? outerRadius : innerRadius;
+                    const angle = (i * Math.PI) / spikes - Math.PI / 2;
+                    const x = this.x + radius * Math.cos(angle);
+                    const y = this.y + radius * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity * twinkle})`;
+                ctx.fill();
+            }
+        }
+
+        class Dust {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = 0.5 + Math.random() * 1;
+                this.opacity = 0.1 + Math.random() * 0.3;
+                this.vx = (Math.random() - 0.5) * config.dustSpeed;
+                this.vy = (Math.random() - 0.5) * config.dustSpeed;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0) this.x = width;
+                if (this.x > width) this.x = 0;
+                if (this.y < 0) this.y = height;
+                if (this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        class Meteor {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height * 0.5;
+                this.length = 100 + Math.random() * 80;
+                this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.2;
+                this.speed = config.meteorSpeedBase + Math.random() * 3;
+                this.opacity = 0;
+                this.fadeIn = true;
+                this.life = 0;
+                this.maxLife = 200 + Math.random() * 50;
+            }
+            update() {
+                this.life++;
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                const fadeInDuration = 40;
+                const fadeOutDuration = 60;
+                if (this.life < fadeInDuration) {
+                    this.opacity = this.life / fadeInDuration;
+                } else if (this.life > this.maxLife - fadeOutDuration) {
+                    this.opacity = 1 - (this.life - (this.maxLife - fadeOutDuration)) / fadeOutDuration;
+                }
+                if (this.x > width + this.length || this.y > height + this.length || this.life > this.maxLife || this.opacity <= 0) {
+                    return false;
+                }
+                return true;
+            }
+            draw() {
+                const tailX = this.x - Math.cos(this.angle) * this.length;
+                const tailY = this.y - Math.sin(this.angle) * this.length;
+                const gradient = ctx.createLinearGradient(this.x, this.y, tailX, tailY);
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${this.opacity * 0.8})`);
+                gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(tailX, tailY);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        class AriesConstellation {
+            constructor(offsetX, offsetY, scale) {
+                this.offsetX = offsetX;
+                this.offsetY = offsetY;
+                this.scale = scale;
+                this.initShape();
+            }
+            initShape() {
+                const shape = [
+                    { x: -30, y: 40 },
+                    { x: 10, y: 20 },
+                    { x: 0, y: -20 },
+                    { x: 50, y: -30 },
+                    { x: 80, y: 10 }
+                ];
+                const lines = [
+                    [0, 1], [1, 2], [2, 3], [3, 4], [1, 3]
+                ];
+                this.planets = shape.map(p => ({
+                    x: this.offsetX + p.x * this.scale,
+                    y: this.offsetY + p.y * this.scale,
+                    radius: config.planetRadius,
+                    glowOffset: Math.random() * Math.PI * 2
+                }));
+                this.connections = lines;
+            }
+            draw() {
+                ctx.strokeStyle = 'rgba(220, 220, 220, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                this.connections.forEach(pair => {
+                    const p1 = this.planets[pair[0]];
+                    const p2 = this.planets[pair[1]];
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                });
+                ctx.stroke();
+                this.planets.forEach(p => {
+                    const glow = config.planetGlow + 0.5 * Math.sin(time * 0.03 + p.glowOffset);
+                    const grad = ctx.createRadialGradient(p.x, p.y, p.radius, p.x, p.y, p.radius + glow);
+                    grad.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius + glow, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius * 0.6, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+        }
+
+        function init() {
+            resize();
+            initConstellations();
+            for (let i = 0; i < config.starCount; i++) {
+                stars.push(new Star());
+            }
+            for (let i = 0; i < config.dustCount; i++) {
+                dusts.push(new Dust());
+            }
+        }
+
+        function initConstellations() {
+            constellations = [];
+            constellations.push(new AriesConstellation(
+                width * 0.75,
+                height * 0.25,
+                Math.min(width, height) / 1000 * 2.5
+            ));
+            constellations.push(new AriesConstellation(
+                width * 0.25,
+                height * 0.75,
+                Math.min(width, height) / 1000 * 2.5
+            ));
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            time++;
+            dusts.forEach(dust => {
+                dust.update();
+                dust.draw();
+            });
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            constellations.forEach(constellation => {
+                constellation.draw();
+            });
+            if (Math.random() < config.meteorChance) {
+                meteors.push(new Meteor());
+            }
+            meteors = meteors.filter(meteor => {
+                const alive = meteor.update();
+                if (alive) {
+                    meteor.draw();
+                }
+                return alive;
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initConstellations();
+        });
+
+        const observerOptions = {
+            threshold: [0, 0.15] 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                    entry.target.classList.add('huo-jie');
+                } 
+                else if (!entry.isIntersecting && entry.intersectionRatio <= 0) {
+                    entry.target.classList.remove('huo-jie');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.xian-shi-dong-hua').forEach(el => {
+            observer.observe(el);
+        });
+
+        const daoHangRongQi = document.getElementById('dao-hang-rong-qi');
+        const caiDanAnNiu = document.getElementById('cai-dan-an-niu');
+        let menuOpen = false;
+
+        caiDanAnNiu.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                daoHangRongQi.classList.add('qiang-zhi-ji-huo');
+            } else {
+                daoHangRongQi.classList.remove('qiang-zhi-ji-huo');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!daoHangRongQi.contains(e.target)) {
+                menuOpen = false;
+                daoHangRongQi.classList.remove('qiang-zhi-ji-huo');
+            }
+        });
+
+        function guanBiCaiDan() {
+            menuOpen = false;
+            daoHangRongQi.classList.remove('qiang-zhi-ji-huo');
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            .dao-hang-rong-qi.qiang-zhi-ji-huo .dao-hang-cai-dan { left: 0; }
+            .dao-hang-rong-qi.qiang-zhi-ji-huo .zhe-zhe-ceng { opacity: 1; visibility: visible; }
+            .dao-hang-rong-qi.qiang-zhi-ji-huo .dao-hang-chu-fa-qi::before { width: 36px; height: 36px; animation: xuan-zhuan-dong-hua 1s linear infinite; }
+            .dao-hang-rong-qi.qiang-zhi-ji-huo .dao-hang-chu-fa-qi::after { width: 6px; height: 6px; box-shadow: 0 0 15px #fff; }
+        `;
+        document.head.appendChild(styleSheet);
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
